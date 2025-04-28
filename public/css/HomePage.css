@@ -1,0 +1,8 @@
+.bg__img {
+    background-image: url("../assets/BULAT.png");
+    background-repeat: no-repeat;
+}
+
+.text__green {
+    color: green;
+}
