@@ -20,6 +20,7 @@ return new class extends Migration
             ->default('user');
             $table->string('no_telp');
             $table->string('password');
+            $table->text('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

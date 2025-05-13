@@ -30,7 +30,7 @@
               <form action="" method="POST">
                 @csrf
                 <h1>Sign In to
-                    <br>Rentalszy</h1>
+                    <br>Drivezy</h1>
                 @if ($errors -> any())
 
                 <div class="alert alert-danger">

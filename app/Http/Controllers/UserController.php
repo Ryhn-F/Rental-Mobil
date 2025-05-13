@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 use function Illuminate\Support\enum_value;
 use function PHPSTORM_META\map;
@@ -39,6 +40,54 @@ class UserController extends Controller
         return view('frontend.detail' , compact('mobil'));
     }
 
+    public function syarat(){
+        return view('frontend.syarat');
+    }
+    public function faq(){
+        return view('frontend.faq');
+    }
+    public function about(){
+        return view('frontend.about');
+    }
+    public function service(){
+        return view('frontend.service');
+    }
+    public function profile(){
+        return view('frontend.profile');
+    }
+    public function editProf(){
+        return view('frontend.edit-profile');
+    }
+    public function updateProf(Request $request)
+    {
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255|unique:users,email,' . auth()->id(),     
+        'password' => 'nullable|string|min:6|confirmed',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
+
+    $user = auth()->user();
+    $user->name = $request->name;
+    $user->email = $request->email;
+
+    $passwordChanged = false;
+
+    if ($request->filled('password')) {
+        $user->password = Hash::make($request->password);
+        $changedPassword = true;
+    }
+    
+
+    if ($request->hasFile('image')) {
+        $data = $request->file('image')->store('assets/users', 'public');
+        $user->image = $data;
+    }
+
+    $user->save();
+    
+    return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui.');
+    }
 
     public function register(Request $request){
 

@@ -45,7 +45,25 @@ Route::middleware(['auth'])->group(function(){
 
 
 });
+
+Route::middleware(['auth', 'userAkses:user'])->group(function () {
+    Route::get('/profile', function () {
+        return view('frontend.profile');
+    })->name('profile');
+
+    Route::get('/profile/edit', [UserController::class, 'editProf'])->name('profile.edit');
+    Route::put('/profile/update', [UserController::class, 'updateProf'])->name('profile.update');
+});
+
+
 Route::get('/logout', [SesiController::class, 'logout'])->name('logout');
 
 });
 
+Route::get('/syarat', [UserController::class, 'syarat'])->name('syarat');
+
+Route::get('/faq', [UserController::class, 'faq'])->name('faq');
+Route::get('/about', [UserController::class, 'about'])->name('about');
+Route::get('/contact', [UserController::class, 'contact'])->name('contact');
+Route::get('/service', [UserController::class, 'service'])->name('service');    
+ 
