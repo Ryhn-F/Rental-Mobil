@@ -33,8 +33,8 @@
     <input type="text" hidden name="mobil_id" value="{{$mobil->id}}">
 
         <div class="form-group mt-1 ">
-            <label for="nama" class="fw-bold" >Nama Lengkap</label>
-             <input type="text" name="nama" class="form-control mt-3">
+            <label for="nama" class="fw-bold" >Username</label>
+            <input type="text" name="nama" class="form-control mt-3 " value="{{ Auth::user()->name }}" readonly>
         </div>
         <div class="form-group mt-1">
             <label for="no_telp" class="fw-bold">No. Telp</label>

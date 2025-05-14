@@ -16,9 +16,10 @@
                         <th>Nama Pemesan</th>
                         <th>Mobil</th>
                         <th>Tanggal Book</th>
-                        <th>Jenis Sewa</th >
-                            <th>Harga Total</th >
-                            <th>Aksi</th>
+                        <th>Jenis Sewa</th>
+                        <th>Harga Total</th>
+                        <th>Status konfirmasi</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,14 +31,25 @@
                             {{ $user->mobil->nama_mobil }}
                         </td>
                         <td>{{$user->tgl_sewa}} </td>
-                        <td>{{$user->jenis_sewa}}</td>
+                        <td>{{$user->jenis_sewa}}</td>                  
                         <td>{{$user->harga_total}}</td>
+                        <td>
+                            @if ($user->is_confirmed)
+                                <span class="badge bg-success">Terkonfirmasi</span>
+                            @else
+                                <span class="badge bg-warning">Belum</span>
+                            @endif
+                        </td>
                         <td >
                             <div class="d-flex flex-column align-items-center justify-content-between gap-2 d-block my-auto">
-                                <a href="{{route('mobil.edit',$user->id)}}" class="btn btn-lg btn-success"><i class="bi bi-check2"></i></a>
-                                <form onclick="return confirm('anda yakin ingin menghapus data ini ? ');" action="{{route('mobil.destroy', $user->id)}}" class="d-inline" method="post">
+                                <form action="{{ route('booking.confirm', $user->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menerima data booking ini?')">
                                     @csrf
-                                    @method('delete')
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-lg btn-success"><i class="bi bi-check"></i></button>
+                                </form>
+                                <form action="{{ route('booking.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data booking ini?')">
+                                    @csrf
+                                    @method('DELETE')
                                     <button type="submit" class="btn btn-lg btn-danger"><i class="bi bi-x"></i></button>
                                 </form>
 
@@ -47,7 +59,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="text-center">Data Kosong </td>
+                        <td colspan="8" class="text-center">Data Kosong </td>
                     </tr>
                     @endforelse
                 </tbody>

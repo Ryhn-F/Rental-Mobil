@@ -65,11 +65,11 @@
                     <li>
                         @if ($mobil->ac)
                         <i class="ri-checkbox-circle-line text-success"></i>
-                 <span>AC</span>
-                   @else
-                   <i class="ri-close-circle-line"></i>
-                   <span>AC</span>
-                   @endif
+                      <span>AC</span>
+                        @else
+                        <i class="ri-close-circle-line"></i>
+                        <span>AC</span>
+                        @endif
 
                     </li>
                   </ul>

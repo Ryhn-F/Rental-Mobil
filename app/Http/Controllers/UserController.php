@@ -145,11 +145,7 @@ class UserController extends Controller
         $content= 'Nama : ' . $user->name . '\n' .
                   'Email.:' . $user->email;
 
-        if ($request->jenis_sewa === "Lepas Kunci"){
-            $harga += 100000;
-        }else if ($request->jenis_sewa === "Sopir"){
-            $harga += 50000;
-        }
+
         $request->validate([
             'nama' => 'required',
             'no_telp'=>'required',
@@ -159,16 +155,24 @@ class UserController extends Controller
             'jenis_sewa'=>'required',
             'mobil_id'=>'required',
             'pesan'=>'nullable',
-
-
-
-
         ]);
 
 
         Mail::to('reyhan.firdaus227@gmail.com')->queue(new MailService($title, $body));
         Mail::to('silenthuntah.04@gmail.com')->queue(new MailService($bejir,$content));
 
+        $tglsewa = Carbon::parse($request->tgl_sewa);
+        $harisewa = Carbon::parse($request->hari_sewa);
+
+        $jarakhari = $tglsewa->diffInDays($harisewa);
+
+        $harga *= $jarakhari;
+
+        if ($request->jenis_sewa === "Lepas Kunci"){
+            $harga += 100000;
+        }else if ($request->jenis_sewa === "Sopir"){
+            $harga += 90000;
+        }
 
 
         UserBook::create([
@@ -185,18 +189,7 @@ class UserController extends Controller
         ]
         );
 
-        $tglsewa = Carbon::parse($request->tgl_sewa);
-        $harisewa = Carbon::parse($request->hari_sewa);
 
-        $jarakhari = $tglsewa->diffInDays($harisewa);
-
-        $harga *= $jarakhari;
-
-        if ($request->jenis_sewa === "Lepas Kunci"){
-            $harga += 100000;
-        }else if ($request->jenis_sewa === "Sopir"){
-            $harga += 50000;
-        }
 
         return redirect('home')->with([
             'message' => 'Permintaan anda berhasil dikirim , mohon cek email anda !',
@@ -240,4 +233,15 @@ class UserController extends Controller
 
         return view('frontend.sewa' , compact('mobil'));
     }
+
+    public function bookingList()
+    {
+        $user = Auth::user();
+
+        // Fetch bookings that belong to this user by matching name or user_id if available
+        $bookings = UserBook::where('nama', $user->name)->get();
+
+        return view('frontend.bookinglist', compact('bookings'));
+    }
+
 }
