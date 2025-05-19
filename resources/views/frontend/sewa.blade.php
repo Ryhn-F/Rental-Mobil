@@ -62,6 +62,40 @@
                 <label for="pesan" class="fw-bold">Pesan tambahan</label>
                 <textarea name="pesan" id="pesan" cols="30" rows="5" class="form-control mt-2"></textarea>
             </div>
+        <div class="form-group mt-1 ">
+            <label for="nama" class="fw-bold" >Username</label>
+            <input type="text" name="nama" class="form-control mt-3 " value="{{ Auth::user()->name }}" readonly>
+        </div>
+        <div class="form-group mt-1">
+            <label for="no_telp" class="fw-bold">No. Telp</label>
+             <input type="text" name="no_telp" class="form-control mt-3">
+        </div>
+        <div class="form-group mt-2">
+            <label for="alamat" class="fw-bold">Alamat</label>
+             <input type="text" name="alamat" class="form-control mt-3">
+        </div>
+        <div class="form-group mt-2">
+            <label for="tgl_sewa" class="fw-bold">Hari Sewa</label>
+             <input type="date" name="tgl_sewa" class="form-control mt-3">
+        </div>
+        <div class="form-group mt-2">
+            <label for="hari-sewa" class="fw-bold">Hari Kembali</label>
+             <input type="date" name="hari_sewa" class="form-control mt-3">
+        </div>
+        <div class="form-group mt-2">
+            <label for="jenis_sewa" class="fw-bold">Jenis sewa</label>
+            <select class="form-select mt-3" name="jenis_sewa" >
+                <option selected value="Normal"> Normal </option>
+                <option value="Lepas Kunci">Lepas Kunci (+ Rp.100.000,-)</option>
+                <option value="Sopir">+ Sopir (+ Rp.90.000,-)</option>
+
+              </select>
+        </div>
+        <div class="form-group mt-2">
+            <label for="pesan" class="fw-bold">Pesan tambahan</label>
+            <textarea name="pesan" id="pesan" cols="30" rows="5" class="form-control mt-2"></textarea>
+
+        </div>
 
             <div class="border border-secondary-subtle mt-3"></div>
             <div class="border border-secondary-subtle mt-1"></div>

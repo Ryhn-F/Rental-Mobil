@@ -34,6 +34,8 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('admin/mobil', MobilController::class);
     Route::put('admin/mobil/update-image/{id}' , [MobilController::class, 'updateImage'])->name('mobil.updateImage');
     Route::get('message', [BookingController::class, 'index'])->name('Book');
+    Route::delete('admin/booking/{id}', [BookingController::class, 'destroy'])->name('booking.destroy');
+    Route::patch('admin/booking/{id}/confirm', [BookingController::class, 'confirm'])->name('booking.confirm');
 
 });
 
@@ -42,6 +44,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('detail/{mobil:slug}', [UserController::class, 'detail'])->middleware('userAkses:user')->name('detail');
     Route::get('sewa/{mobil:id}', [UserController::class, 'sewa'])->middleware('userAkses:user')->name('sewa');
     Route::post('sewa', [UserController::class, 'store'])->middleware('userAkses:user')->name('sewa.store');
+    Route::get('/booking-list', [UserController::class, 'bookingList'])->name('booking.list');
+
+
+
+});
 
 
 });
@@ -58,7 +65,6 @@ Route::middleware(['auth', 'userAkses:user'])->group(function () {
 
 Route::get('/logout', [SesiController::class, 'logout'])->name('logout');
 
-});
 
 Route::get('/syarat', [UserController::class, 'syarat'])->name('syarat');
 

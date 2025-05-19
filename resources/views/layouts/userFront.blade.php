@@ -55,6 +55,11 @@
           box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
         }
 
+        .booking-row {
+          background-color: rgb(237, 237, 237);
+          border-radius : 20px;
+        }
+
       </style>
     <meta charset="utf-8" />
     <meta
@@ -96,19 +101,19 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav me-3">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/home">Home</a>
+                      <a class="nav-link {{ Request::is('home') ? 'active' : '' }}" href="/home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/about">About Us</a>
+                        <a class="nav-link {{ Request::is('about') ? 'active' : '' }}" href="/about">About Us</a>
                     </li> 
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Booking List</a>
+                      <a class="nav-link {{ Request::is('booking-list') ? 'active' : '' }}" href="/booking-list">Booking List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/service">Service</a>
+                        <a class="nav-link {{ Request::is('service') ? 'active' : '' }}" href="/service">Service</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/contact">Contact</a>
+                        <a class="nav-link {{ Request::is('contact') ? 'active' : '' }}" href="/contact">Contact</a>
                     </li>
 
                 </ul>
@@ -228,6 +233,13 @@
       <script src="{{asset('Front/js/bootstrap.js')}}"></script>
       <!-- Core theme JS-->
       <script src="{{asset('js/scripts.js')}}"></script>
+
+      <script>
+      const today = new Date();
+      const options = { weekday :"long", month: 'long', day: 'numeric' };
+      document.getElementById('today-date').textContent = today.toLocaleDateString(undefined, options);
+      </script>
+
 
     </body>
 

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('mobil_id');
             $table->foreign('mobil_id')->references('id')->on('mobils')->onDelete('cascade');
             $table->integer('harga_total');
+            $table->boolean('is_confirmed')->nullable()->default(null);
             $table->timestamps();
         });
     }
